@@ -1,0 +1,1 @@
+# lore-manager-frontend
