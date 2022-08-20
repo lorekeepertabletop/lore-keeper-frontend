@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:lore_manager_frontend/domain/user.dart';
-import 'package:lore_manager_frontend/util/dio_api.dart';
+import 'package:lore_keeper_frontend/domain/user.dart';
+import 'package:lore_keeper_frontend/util/dio_api.dart';
 
 class UserRepository {
 

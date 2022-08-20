@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lore_manager_frontend/repository/auth_repository.dart';
-import 'package:lore_manager_frontend/util/hex_color.dart';
-import 'package:lore_manager_frontend/view/success.dart';
+import 'package:lore_keeper_frontend/repository/auth_repository.dart';
+import 'package:lore_keeper_frontend/util/hex_color.dart';
+import 'package:lore_keeper_frontend/view/success.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
-                    Text(
+                    SelectableText(
                       "Lore Manager",
                       style: GoogleFonts.montserrat(
                         fontWeight: FontWeight.bold,
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 60),
-                    Text(
+                    SelectableText(
                       "Good to have you back ;)",
                       style: GoogleFonts.montserrat(fontSize: 20),
                     ),
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       children: [
                         const SizedBox(width: 20),
-                        Text(
+                        SelectableText(
                           "Forgot your password?",
                           style: GoogleFonts.montserrat(
                             fontSize: 12,
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                       onPressed: _login,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
+                        child: SelectableText(
                           "Sign In",
                           style: GoogleFonts.montserrat(
                             fontSize: 20,
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        Text(
+                        SelectableText(
                           "Create an account",
                           style: GoogleFonts.montserrat(
                             fontSize: 12,
@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
           showDialog(
               context: context,
               builder: (context) {
-                return const AlertDialog(title: Text("Username or password incorrect!"));
+                return const AlertDialog(title: SelectableText("Username or password incorrect!"));
               }
           );
 
@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> {
         decoration: InputDecoration(
           prefixIcon: prefixIcon,
           labelStyle: GoogleFonts.montserrat(),
-          errorText: isValid ? null : "Por favor, preencha o campo.",
+          errorText: isValid ? null : "Please, fill the field.",
           hintText: hintText,
           border: const OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(
