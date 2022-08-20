@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:lore_manager_frontend/interceptors/api_interceptor.dart';
+import 'package:lore_keeper_frontend/interceptors/api_interceptor.dart';
 
 class DioApi {
 
-  static String backendUrl = "http://localhost:8080/api";
+  static String backendUrl = "http://lorekepper.herokuapp.com/api/";
 
   static Dio _getDio({Map<String, dynamic>? headers}) {
 

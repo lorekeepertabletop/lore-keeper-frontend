@@ -1,6 +1,6 @@
 {
-    "name": "lore_manager_frontend",
-    "short_name": "lore_manager_frontend",
+    "name": "lore_keeper_frontend",
+    "short_name": "lore_keeper_frontend",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
