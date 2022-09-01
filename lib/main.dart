@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'view/lading/landing_page.dart';
@@ -18,16 +19,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(
       builder: (context, orientation, deviceType) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSwatch().copyWith(
-              primary: Colors.green,
-              secondary: Colors.black,
+        return Portal(
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSwatch().copyWith(
+                primary: Colors.green,
+                secondary: Colors.black,
+              ),
+              fontFamily: GoogleFonts.montserrat().fontFamily,
             ),
-            fontFamily: GoogleFonts.montserrat().fontFamily,
+            home: LandingPage(),
           ),
-          home: LandingPage(),
         );
       }
     );
