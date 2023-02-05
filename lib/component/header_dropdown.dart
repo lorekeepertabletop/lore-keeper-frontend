@@ -1,74 +1,102 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_portal/flutter_portal.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lore_keeper_frontend/domain/rec_values/enum/rec_direction.dart';
+import 'package:lore_keeper_frontend/domain/rec_values/rec_values.dart';
 
 class HeaderDropdown extends StatefulWidget {
 
-  final String text;
-  final GestureTapCallback onTap;
-  final Icon? icon;
+  final Widget header;
+  final Widget dropdown;
+  final RecDirection recDirection;
 
-  const HeaderDropdown(this.text, {Key? key, required this.onTap, this.icon}) : super(key: key);
+  HeaderDropdown({Key? key, required this.header, required this.dropdown, required this.recDirection}) : super(key: key);
 
   @override
-  State<HeaderDropdown> createState() => _HeaderDropdownState();
+  _HeaderDropdownState createState() => _HeaderDropdownState();
 }
 
 class _HeaderDropdownState extends State<HeaderDropdown> {
-  bool isHooveredTarget = false;
-  bool isHooveredFollower = false;
+
+  OverlayEntry? _overlayEntry;
+  final GlobalKey _globalKey = GlobalKey();
+  bool _isHoveredHeader = false;
+  bool _isHoveredDropdown = false;
+
+  void verifyOverlay() {
+
+    setState(() {
+      if (_isHoveredHeader || _isHoveredDropdown) {
+
+        if (_overlayEntry == null) {
+
+          createOverlay();
+
+        }
+
+      } else {
+
+        if (_overlayEntry != null) {
+
+          removeOverlay();
+
+        }
+
+      }
+    });
+
+  }
+
+  void createOverlay() {
+
+    final RenderBox renderBox = _globalKey.currentContext?.findRenderObject() as RenderBox;
+    RecValues recValues = widget.recDirection.getRecValue(renderBox.localToGlobal(Offset.zero) & renderBox.size);
+
+    _overlayEntry = OverlayEntry(builder: (BuildContext context) {
+      return Positioned(
+            top: recValues.bottom,
+            left: recValues.left,
+            right: recValues.right,
+            child: Theme(
+              data: Theme.of(context),
+              child: MouseRegion(
+                  child: widget.dropdown,
+                  onEnter: (event) {
+                    _isHoveredDropdown = true;
+                    verifyOverlay();
+                  },
+                  onExit: (event) {
+                    _isHoveredDropdown = false;
+                    verifyOverlay();
+                  }
+              ),
+            )
+        );
+    });
+
+    Overlay.of(context)?.insert(_overlayEntry!);
+
+  }
+
+  void removeOverlay() {
+
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onEnter: (event) {
-        setState(() {
-          isHooveredTarget = true;
-        });
-      },
+      key: _globalKey,
       onExit: (event) {
-        setState(() {
-          isHooveredTarget = false;
-        });
+        _isHoveredHeader = false;
+        verifyOverlay();
       },
-      child: PortalTarget(
-        visible: isHooveredTarget || isHooveredFollower,
-        anchor: const Aligned(follower: Alignment.topCenter, target: Alignment.bottomCenter),
-        closeDuration: const Duration(milliseconds: 100),
-        portalFollower: MouseRegion(
-          onEnter: (event) {
-            isHooveredFollower = true;
-          },
-          onExit: (event) {
-            setState(() {
-              isHooveredFollower = false;
-            });
-          },
-          child: Container(
-            width: 110,
-            decoration: BoxDecoration(
-              color: Colors.green,
-              shape: BoxShape.rectangle,
-              border: Border.all(color: Colors.black, width: 1.5)
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text("Option 1"),
-                SizedBox(height: 10,),
-                Text("Option 2"),
-                SizedBox(height: 10,),
-                Text("Option 3"),
-              ],
-            ),
-          ),
-        ),
-        child: Row(
-          children: [
-            SelectableText(widget.text, style: const TextStyle(fontWeight: FontWeight.bold),),
-            widget.icon ?? const Icon(Icons.arrow_drop_down),
-          ],
-        ),
-      ),
+      onEnter: (event) {
+        _isHoveredHeader = true;
+        verifyOverlay();
+      },
+      child: widget.header,
     );
   }
 }

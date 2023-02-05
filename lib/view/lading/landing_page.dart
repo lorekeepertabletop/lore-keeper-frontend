@@ -9,9 +9,9 @@ class LandingPage extends StatelessWidget {
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size(100.w, 70),
+          preferredSize: Size(100.w, 200),
           child: LandingHeader()),
-        body: Container()
+      body: Container(),
     );
   }
 }

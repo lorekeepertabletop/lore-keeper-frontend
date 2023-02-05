@@ -1,4 +1,6 @@
-import 'package:lore_keeper_frontend/enums/role.dart';
+
+
+import 'enum/role.dart';
 
 class User {
 

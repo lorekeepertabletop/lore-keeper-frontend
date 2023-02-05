@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:lore_keeper_frontend/interceptors/api_interceptor.dart';
+import '../interceptor/api_interceptor.dart';
 
 class DioApi {
 

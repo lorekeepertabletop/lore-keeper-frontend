@@ -135,8 +135,6 @@ class _HomePageState extends State<HomePage> {
         "password" : _passwordController.text
       };
 
-      print(loginMap);
-
       _authRepository.login(loginMap).then((value) {
         
         if (value) {
