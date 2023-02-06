@@ -14,7 +14,7 @@ class LandingHeader extends StatelessWidget {
     return ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
-          side: const BorderSide(style: BorderStyle.solid),
+          side: const BorderSide(style: BorderStyle.solid, width: 2),
           shape: const ContinuousRectangleBorder(),
         ),
         child: Text(text, style: TextStyles.styleDefault)

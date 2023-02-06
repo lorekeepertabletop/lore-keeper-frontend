@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lore_keeper_frontend/domain/rec_values/enum/rec_direction.dart';
 import 'package:lore_keeper_frontend/domain/rec_values/rec_values.dart';
 
@@ -9,39 +8,51 @@ class HeaderDropdown extends StatefulWidget {
   final Widget dropdown;
   final RecDirection recDirection;
 
-  HeaderDropdown({Key? key, required this.header, required this.dropdown, required this.recDirection}) : super(key: key);
+  const HeaderDropdown({Key? key, required this.header, required this.dropdown, required this.recDirection}) : super(key: key);
 
   @override
-  _HeaderDropdownState createState() => _HeaderDropdownState();
+  State<HeaderDropdown> createState() => _HeaderDropdownState();
+
 }
 
-class _HeaderDropdownState extends State<HeaderDropdown> {
+class _HeaderDropdownState extends State<HeaderDropdown> with TickerProviderStateMixin {
 
   OverlayEntry? _overlayEntry;
   final GlobalKey _globalKey = GlobalKey();
   bool _isHoveredHeader = false;
   bool _isHoveredDropdown = false;
 
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+
+    super.initState();
+
+    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+
+  }
+
   void verifyOverlay() {
 
     setState(() {
+
+      if (_overlayEntry == null) {
+
+        createOverlay();
+
+      }
+
       if (_isHoveredHeader || _isHoveredDropdown) {
 
-        if (_overlayEntry == null) {
-
-          createOverlay();
-
-        }
+        displayOverlay();
 
       } else {
 
-        if (_overlayEntry != null) {
-
-          removeOverlay();
-
-        }
+        removeOverlay();
 
       }
+
     });
 
   }
@@ -53,39 +64,48 @@ class _HeaderDropdownState extends State<HeaderDropdown> {
 
     _overlayEntry = OverlayEntry(builder: (BuildContext context) {
       return Positioned(
-            top: recValues.bottom,
-            left: recValues.left,
-            right: recValues.right,
-            child: Theme(
-              data: Theme.of(context),
-              child: MouseRegion(
-                  child: widget.dropdown,
-                  onEnter: (event) {
-                    _isHoveredDropdown = true;
-                    verifyOverlay();
-                  },
-                  onExit: (event) {
-                    _isHoveredDropdown = false;
-                    verifyOverlay();
-                  }
+        top: recValues.bottom,
+        left: recValues.left,
+        right: recValues.right,
+        child: MouseRegion(
+            child: SizeTransition(
+              sizeFactor: CurvedAnimation(
+                  parent: _animationController,
+                  curve: Curves.easeOut
               ),
-            )
-        );
+              child: widget.dropdown,
+            ),
+            onEnter: (event) {
+              _isHoveredDropdown = true;
+              verifyOverlay();
+            },
+            onExit: (event) {
+              _isHoveredDropdown = false;
+              verifyOverlay();
+            }
+        ),
+      );
     });
 
     Overlay.of(context)?.insert(_overlayEntry!);
 
   }
 
+  void displayOverlay() {
+
+    _animationController.forward();
+
+  }
+
   void removeOverlay() {
 
-    _overlayEntry?.remove();
-    _overlayEntry = null;
+    _animationController.reverse();
 
   }
 
   @override
   Widget build(BuildContext context) {
+
     return MouseRegion(
       key: _globalKey,
       onExit: (event) {
@@ -98,5 +118,7 @@ class _HeaderDropdownState extends State<HeaderDropdown> {
       },
       child: widget.header,
     );
+
   }
+
 }
