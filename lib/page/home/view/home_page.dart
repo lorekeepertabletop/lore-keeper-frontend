@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lore_keeper_frontend/repository/auth_repository.dart';
 import 'package:lore_keeper_frontend/util/hex_color.dart';
-import 'package:lore_keeper_frontend/view/success.dart';
+
+import '../../success.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

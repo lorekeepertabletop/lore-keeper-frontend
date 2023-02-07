@@ -1,29 +1,19 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lore_keeper_frontend/component/button_dropdown.dart';
+import 'package:get/get.dart';
+import 'package:lore_keeper_frontend/page/landing/controller/landing_controller.dart';
+import '../../../component/button_dropdown/view/button_dropdown_view.dart';
+import '../../../component/header_dropdown/view/header_dropdown_view.dart';
 import 'package:lore_keeper_frontend/domain/rec_values/enum/rec_direction.dart';
-import 'package:lore_keeper_frontend/util/hex_color.dart';
 import 'package:lore_keeper_frontend/util/text_styles.dart';
-import 'package:lore_keeper_frontend/view/login/login_modal.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../component/header_dropdown.dart';
+import '../../login/view/login_modal.dart';
 
 class LandingHeader extends StatelessWidget {
 
-  ElevatedButton _createElevatedButton (String text, VoidCallback onTap) {
+  LandingHeader({super.key});
 
-    return ElevatedButton(
-        onPressed: onTap,
-        style: ElevatedButton.styleFrom(
-          side: const BorderSide(style: BorderStyle.solid, width: 2),
-          shape: const ContinuousRectangleBorder(),
-        ),
-        child: Text(text, style: TextStyles.styleDefault)
-    );
-
-  }
+  final LandingController landingController = Get.put(LandingController());
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +32,7 @@ class LandingHeader extends StatelessWidget {
                       Icon(Icons.arrow_drop_down)
                     ],
                   ),
-                  dropdown: _createElevatedButton("Opção", () {}),
+                  dropdown: landingController.createElevatedButton("Opção", () {}),
                   recDirection: RecDirection.BOTTOM_LEFT
               ),
               SizedBox(width: 2.w,),
@@ -53,7 +43,7 @@ class LandingHeader extends StatelessWidget {
                       Icon(Icons.arrow_drop_down)
                     ],
                   ),
-                  dropdown: _createElevatedButton("Opção", () {}),
+                  dropdown: landingController.createElevatedButton("Opção", () {}),
                   recDirection: RecDirection.BOTTOM_LEFT
               ),
               SizedBox(width: 2.w,),
@@ -64,7 +54,7 @@ class LandingHeader extends StatelessWidget {
                       Icon(Icons.arrow_drop_down)
                     ],
                   ),
-                  dropdown: _createElevatedButton("Opção", () {}),
+                  dropdown: landingController.createElevatedButton("Opção", () {}),
                   recDirection: RecDirection.BOTTOM_LEFT
               ),
               SizedBox(width: 2.w,),
@@ -75,7 +65,7 @@ class LandingHeader extends StatelessWidget {
                       Icon(Icons.arrow_drop_down)
                     ],
                   ),
-                  dropdown: _createElevatedButton("Opção", () {}),
+                  dropdown: landingController.createElevatedButton("Opção", () {}),
                   recDirection: RecDirection.BOTTOM_LEFT
               ),
             ],

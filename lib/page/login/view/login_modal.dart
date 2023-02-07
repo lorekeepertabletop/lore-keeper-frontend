@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../util/hex_color.dart';
+import '../../../util/hex_color.dart';
 
 class LoginModal extends StatelessWidget {
 
