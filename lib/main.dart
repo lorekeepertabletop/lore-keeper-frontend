@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-import 'view/lading/landing_page.dart';
+import 'view/landing/landing_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +21,9 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSwatch().copyWith(
                 primary: Colors.green,
                 secondary: Colors.black,
+              ),
+              textSelectionTheme: const TextSelectionThemeData(
+                selectionColor: Colors.blue
               ),
               fontFamily: GoogleFonts.montserrat().fontFamily
             ),

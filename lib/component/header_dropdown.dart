@@ -29,7 +29,7 @@ class _HeaderDropdownState extends State<HeaderDropdown> with TickerProviderStat
 
     super.initState();
 
-    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 80));
 
   }
 
@@ -87,7 +87,7 @@ class _HeaderDropdownState extends State<HeaderDropdown> with TickerProviderStat
       );
     });
 
-    Overlay.of(context)?.insert(_overlayEntry!);
+    Overlay.of(context).insert(_overlayEntry!);
 
   }
 

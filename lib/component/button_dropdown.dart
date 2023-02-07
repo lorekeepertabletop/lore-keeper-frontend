@@ -1,33 +1,30 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ButtonDropdown extends StatelessWidget {
+class ButtonDropdown<T extends Widget, B extends Widget> extends StatelessWidget {
 
-  final String text;
+  final T button;
+  final B dropdown;
 
-  final VoidCallback? onPressed;
-  final Icon? icon;
-
-  const ButtonDropdown(this.text, {required this.onPressed, this.icon});
+  const ButtonDropdown({super.key, required this.button, required this.dropdown});
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.only(left: 10),
-          primary: Colors.transparent,
-          shadowColor: Colors.transparent,
-          shape: const ContinuousRectangleBorder(),
-          side: const BorderSide(
-            style: BorderStyle.solid
-          )
-        ),
-        child: Row(
-          children: [
-            Text(text, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
-            icon ?? const Icon(Icons.arrow_drop_down, color: Colors.black,)
-          ],
+    return PopupMenuButton<B>(
+      offset: const Offset(0, 7),
+      shape: const Border.fromBorderSide(BorderSide(color: Colors.black)),
+      color: Colors.green,
+      position: PopupMenuPosition.under,
+      tooltip: "",
+      child: button,
+      itemBuilder: (context) => <PopupMenuEntry<B>>[
+        PopupMenuItem(
+            padding: const EdgeInsets.all(10),
+            enabled: false,
+            child: dropdown
         )
+      ],
     );
   }
+
 }
