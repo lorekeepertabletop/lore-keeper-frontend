@@ -3,7 +3,7 @@ import '../interceptor/api_interceptor.dart';
 
 class DioApi {
 
-  static String backendUrl = "http://lorekepper.herokuapp.com/api/";
+  static String backendUrl = "https://lore-keeper-backend-production.up.railway.app/api";
 
   static Dio _getDio({Map<String, dynamic>? headers}) {
 
