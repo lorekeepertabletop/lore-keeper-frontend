@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 
-import 'util/hex_color.dart';
-import 'view/home_page.dart';
+import 'page/landing/view/landing_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,13 +15,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ThemeData().colorScheme.copyWith(
-              primary: HexColor("CEE5D0"),
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSwatch().copyWith(
+                primary: Colors.green,
+                secondary: Colors.black,
+              ),
+              textSelectionTheme: const TextSelectionThemeData(
+                selectionColor: Colors.blue
+              ),
+              fontFamily: GoogleFonts.montserrat().fontFamily
             ),
-      ),
-      home: const HomePage(),
+            home: LandingPage(),
+          );
+      }
     );
   }
 }
