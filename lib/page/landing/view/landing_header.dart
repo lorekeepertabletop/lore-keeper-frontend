@@ -91,7 +91,7 @@ class LandingHeader extends StatelessWidget {
                           ],
                         ),
                       ),
-                      dropdown: const LoginModal()
+                      dropdown: LoginModal()
                   ),
                   SizedBox(width: 1.w,),
                   GestureDetector(

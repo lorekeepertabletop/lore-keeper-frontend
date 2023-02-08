@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lore_keeper_frontend/page/login/controller/login_controller.dart';
 
 import '../../../util/hex_color.dart';
 
 class LoginModal extends StatelessWidget {
 
-  const LoginModal({super.key});
+  LoginModal({super.key});
+
+  final LoginController controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -14,21 +18,22 @@ class LoginModal extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SelectableText("Email"),
-          const TextField(
+          TextField(
+            controller: controller.emailController,
             cursorColor: Colors.black,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
                 iconColor: Colors.black,
                 icon: Icon(Icons.email),
                 hintText: "example@email.com"
             ),
           ),
-          SizedBox(height: 10),
-          SelectableText("Password"),
-          const TextField(
+          const SizedBox(height: 10),
+          const Text("Password"),
+          TextField(
+            controller: controller.passWordController,
             cursorColor: Colors.black,
             obscureText: true,
-
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
                 iconColor: Colors.black,
                 icon: Icon(Icons.key),
                 hintText: "********"
@@ -38,7 +43,7 @@ class LoginModal extends StatelessWidget {
           Row(
             children: [
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => controller.signIn(),
                   style: ElevatedButton.styleFrom(
                       shape: const ContinuousRectangleBorder(
                           side: BorderSide(color: Colors.black)
